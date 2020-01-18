@@ -1,0 +1,36 @@
+{
+  "name": "react-data-wrapper",
+  "version": "1.0.0",
+  "description": "Simple ReactJS component for rendering data with loading, failure & empty states",
+  "main": "lib/index.js",
+  "module": "lib/index.js",
+  "scripts": {
+    "start": "tsc --watch",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SanichKotikov/react-data-wrapper.git"
+  },
+  "author": "Sanich Kotikov <sancho@cdrpro.ru> (https://sanichkotikov.github.io)",
+  "license": "MIT",
+  "files": [
+    "lib"
+  ],
+  "keywords": [
+    "react",
+    "react-component",
+    "component"
+  ],
+  "bugs": {
+    "url": "https://github.com/SanichKotikov/react-data-wrapper/issues"
+  },
+  "peerDependencies": {
+    "react": "16.12.0"
+  },
+  "devDependencies": {
+    "@types/react": "16.9.17",
+    "typescript": "3.7.5"
+  },
+  "homepage": "https://github.com/SanichKotikov/react-data-wrapper"
+}
