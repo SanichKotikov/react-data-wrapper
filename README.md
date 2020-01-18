@@ -13,7 +13,7 @@ import DataWrapper from 'react-data-wrapper';
   fetchFunc={store.fetch}
   isEmpty={store.empty}
   loading={<div>Loading posts...</div>}
-  failure={<ErrorLoading />}
+  failure={onError => <ErrorLoading onError={onError} />}
   empty={<div>No data</div>}
 >
   <PostsList posts={store.posts} />

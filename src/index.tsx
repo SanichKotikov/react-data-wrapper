@@ -5,7 +5,7 @@ interface IProps {
   isEmpty: boolean;
   fetchFunc: () => Promise<void>;
   loading: React.ReactElement;
-  failure: React.ReactElement;
+  failure: (reload: () => Promise<void>) => React.ReactElement;
   empty: React.ReactElement;
   children: React.ReactElement;
 }
@@ -34,7 +34,7 @@ export default React.memo<IProps>(
 
     switch (true) {
       case state.loading && isEmpty: return loading;
-      case state.failure: return React.cloneElement(failure, { onReload });
+      case state.failure: return failure(onReload);
       case state.success && isEmpty: return empty;
       case state.success && !isEmpty: return children;
       default: return null;
