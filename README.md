@@ -13,12 +13,14 @@ import DataWrapper from 'react-data-wrapper';
   fetchFunc={store.fetch}
   isEmpty={store.empty}
   loading={<div>Loading posts...</div>}
-  failure={ErrorLoading}
+  failure={<ErrorLoading />}
   empty={<div>No data</div>}
 >
   <PostsList posts={store.posts} />
 </DataWrapper>
 ```
+
+📝 [Example code](https://github.com/SanichKotikov/react-hooks-mobx-demo/blob/master/src/posts/routes/Posts/Posts.tsx)
 
 ## Install
 

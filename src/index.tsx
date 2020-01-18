@@ -1,15 +1,11 @@
 import React, { useEffect, useCallback } from 'react';
 import useStates from './useStates';
 
-interface IFailureProps {
-  onReload: () => Promise<void>;
-}
-
 interface IProps {
   isEmpty: boolean;
   fetchFunc: () => Promise<void>;
   loading: React.ReactElement;
-  failure: React.FunctionComponent<IFailureProps>;
+  failure: React.ReactElement;
   empty: React.ReactElement;
   children: React.ReactElement;
 }
@@ -19,7 +15,7 @@ export default React.memo<IProps>(
     isEmpty,
     fetchFunc,
     loading,
-    failure: ErrComp,
+    failure,
     empty,
     children,
   }) {
@@ -32,13 +28,13 @@ export default React.memo<IProps>(
         .catch(setState.error);
     }, [setState]);
 
-    const reload = useCallback(() => {
+    const onReload = useCallback(() => {
       return fetchFunc().then(setState.done);
     }, [setState]);
 
     switch (true) {
       case state.loading && isEmpty: return loading;
-      case state.failure: return <ErrComp onReload={reload} />;
+      case state.failure: return React.cloneElement(failure, { onReload });
       case state.success && isEmpty: return empty;
       case state.success && !isEmpty: return children;
       default: return null;
