@@ -1,7 +1,10 @@
 import React, { useEffect, useCallback } from 'react';
-import useStates from './useStates';
+import useStates, { DataState } from './useStates';
+
+export { DataState };
 
 interface IProps {
+  initState?: DataState;
   isEmpty: boolean;
   fetchFunc: () => Promise<void>;
   loading: React.ReactElement;
@@ -12,6 +15,7 @@ interface IProps {
 
 export default React.memo<IProps>(
   function DataWrapper({
+    initState,
     isEmpty,
     fetchFunc,
     loading,
@@ -19,7 +23,7 @@ export default React.memo<IProps>(
     empty,
     children,
   }) {
-    const { setState, ...state } = useStates();
+    const { setState, ...state } = useStates(initState);
 
     useEffect(() => {
       setState.load();
@@ -36,7 +40,7 @@ export default React.memo<IProps>(
       case state.loading && isEmpty: return loading;
       case state.failure: return failure(onReload);
       case state.success && isEmpty: return empty;
-      case state.success && !isEmpty: return children;
+      case !state.failure && !isEmpty: return children;
       default: return null;
     }
   }

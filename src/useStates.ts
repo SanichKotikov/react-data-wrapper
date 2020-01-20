@@ -1,25 +1,25 @@
 import { useState, useMemo } from 'react';
 
-enum fsState {
-  idle,
-  loading,
-  success,
-  failure,
+export enum DataState {
+  Idle,
+  Loading,
+  Success,
+  Failure,
 }
 
-function useStates() {
-  const [state, update] = useState(fsState.idle);
+function useStates(init: DataState = DataState.Idle) {
+  const [state, update] = useState(init);
 
   const setState = useMemo(() => ({
-    load() { update(fsState.loading) },
-    done() { update(fsState.success) },
-    error() { update(fsState.failure) },
+    load() { update(DataState.Loading) },
+    done() { update(DataState.Success) },
+    error() { update(DataState.Failure) },
   }), []);
 
   return {
-    loading: state === fsState.loading,
-    success: state === fsState.success,
-    failure: state === fsState.failure,
+    loading: state === DataState.Loading,
+    success: state === DataState.Success,
+    failure: state === DataState.Failure,
     setState,
   };
 }
