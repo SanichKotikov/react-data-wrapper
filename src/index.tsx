@@ -5,11 +5,11 @@ export { DataState };
 
 interface IProps {
   initState?: DataState;
-  isEmpty: boolean;
+  isEmpty?: boolean;
   fetchFunc: () => Promise<void>;
   loading: React.ReactElement;
   failure: (reload: () => Promise<void>) => React.ReactElement;
-  empty: React.ReactElement;
+  empty?: React.ReactElement;
   children: React.ReactElement;
 }
 
@@ -36,12 +36,17 @@ export default React.memo<IProps>(
       return fetchFunc().then(setState.done);
     }, [setState]);
 
-    switch (true) {
-      case state.loading && isEmpty: return loading;
-      case state.failure: return failure(onReload);
-      case state.success && isEmpty: return empty;
-      case !state.failure && !isEmpty: return children;
-      default: return null;
+    if (empty === undefined) {
+      if (state.loading) return loading;
+      if (state.failure) return failure(onReload);
+      if (state.success) return children;
+    } else {
+      if (state.loading && isEmpty) return loading;
+      if (state.failure) return failure(onReload);
+      if (state.success && isEmpty) return empty;
+      if (!state.failure && !isEmpty) return children;
     }
+
+    return null;
   }
 );
