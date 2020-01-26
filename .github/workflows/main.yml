@@ -1,0 +1,26 @@
+name: Build & Test
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Setup Node
+      uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Build
+      run: npm build
+
+    - name: Test
+      run: npm test
