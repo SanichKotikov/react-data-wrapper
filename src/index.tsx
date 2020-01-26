@@ -1,5 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
 import useStates, { DataState } from './useStates';
+import condition from './condition';
 
 export { DataState };
 
@@ -36,17 +37,6 @@ export default React.memo<IProps>(
       return fetchFunc().then(setState.done);
     }, [setState]);
 
-    if (empty === undefined) {
-      if (state.loading) return loading;
-      if (state.failure) return failure(onReload);
-      if (state.success) return children;
-    } else {
-      if (state.loading && isEmpty) return loading;
-      if (state.failure) return failure(onReload);
-      if (state.success && isEmpty) return empty;
-      if (!state.failure && !isEmpty) return children;
-    }
-
-    return null;
+    return condition(state, loading, failure, children, onReload, isEmpty, empty);
   }
 );

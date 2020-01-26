@@ -1,12 +1,13 @@
 {
   "name": "react-data-wrapper",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Simple ReactJS component for rendering data with loading, failure & empty states",
   "main": "lib/index.js",
   "module": "lib/index.js",
   "scripts": {
     "start": "tsc --watch",
-    "build": "tsc"
+    "build": "tsc",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -26,10 +27,16 @@
     "url": "https://github.com/SanichKotikov/react-data-wrapper/issues"
   },
   "peerDependencies": {
-    "react": "16.12.0"
+    "react": ">= 16.8.0"
   },
   "devDependencies": {
+    "@testing-library/react-hooks": "3.2.1",
+    "@types/jest": "24.9.1",
     "@types/react": "16.9.17",
+    "jest": "25.1.0",
+    "react": "16.12.0",
+    "react-test-renderer": "16.12.0",
+    "ts-jest": "25.0.0",
     "typescript": "3.7.5"
   },
   "homepage": "https://github.com/SanichKotikov/react-data-wrapper"
