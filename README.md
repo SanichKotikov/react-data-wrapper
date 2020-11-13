@@ -2,7 +2,7 @@
 
 Simple ReactJS component for rendering data with loading, failure & empty states.
 
-Note: required React v16.8+
+Note: required React v16.9+
 
 ## Usage
 
