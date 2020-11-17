@@ -13,12 +13,14 @@ import DataWrapper from 'react-data-wrapper';
   fetchFunc={store.fetch}
   isEmpty={store.empty}
   loading={<div>Loading posts...</div>}
-  failure={reload => <ErrorLoading onReload={reload} />}
+  failure={<ErrorLoading />}
   empty={<div>No data</div>}
 >
   <PostsList posts={store.posts} />
 </DataWrapper>
 ```
+
+Note: ErrorLoading should have `onReloadClick: () => Promise<void>` prop.
 
 📝 [Example code](https://github.com/SanichKotikov/react-hooks-mobx-demo/blob/master/src/posts/routes/Posts/Posts.tsx)
 
