@@ -31,7 +31,7 @@ export default React.memo<IProps>(
       fetchFunc()
         .then(setState.done)
         .catch(setState.error);
-    }, [setState]);
+    }, [fetchFunc, setState]);
 
     const failureFunc = useMemo(() => (
       (onReloadClick: () => Promise<void>) => (
@@ -41,7 +41,7 @@ export default React.memo<IProps>(
 
     const onReload = useCallback(() => {
       return fetchFunc().then(setState.done);
-    }, [setState]);
+    }, [fetchFunc, setState]);
 
     return condition(state, loading, failureFunc, children, onReload, isEmpty, empty);
   }
