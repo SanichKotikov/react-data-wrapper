@@ -1,9 +1,9 @@
-import React, {useMemo, useEffect} from 'react';
-import {DataState} from './useStates';
+import React, { useEffect, useMemo } from 'react';
+import { DataState } from './useStates';
 import useFetchState from './useFetchState';
 import ControlledDataWrapper from './ControlledDataWrapper';
 
-export {DataState, useFetchState, ControlledDataWrapper};
+export { DataState, useFetchState, ControlledDataWrapper };
 
 interface IProps {
   initState?: DataState;
@@ -16,26 +16,26 @@ interface IProps {
 }
 
 export default React.memo<IProps>(function DataWrapper({
-	initState,
-	fetchFunc,
-	failure,
-	...otherProps
+  initState,
+  fetchFunc,
+  failure,
+  ...otherProps
 }) {
-	const [state, runFetch, reload] = useFetchState(fetchFunc, initState);
+  const [state, runFetch, reload] = useFetchState(fetchFunc, initState);
 
-	useEffect(runFetch, [runFetch]);
+  useEffect(runFetch, [runFetch]);
 
-	const failureWithReload = useMemo(
-		() => React.cloneElement(failure, {onReloadClick: reload}),
-		[failure, reload],
-	);
+  const failureWithReload = useMemo(
+    () => React.cloneElement(failure, { onReloadClick: reload }),
+    [failure, reload],
+  );
 
-	return (
-		<ControlledDataWrapper
-			state={state}
-			failure={failureWithReload}
-			onReload={reload}
-			{...otherProps}
-		/>
-	);
+  return (
+    <ControlledDataWrapper
+      state={state}
+      failure={failureWithReload}
+      onReload={reload}
+      {...otherProps}
+    />
+  );
 });
