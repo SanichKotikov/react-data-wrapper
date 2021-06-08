@@ -1,4 +1,4 @@
-interface IState {
+export interface IState {
   loading: boolean;
   failure: boolean;
   success: boolean;
@@ -7,7 +7,7 @@ interface IState {
 function condition<T extends any>(
   state: Readonly<IState>,
   loading: T,
-  failure: (reload: () => Promise<void>) => T,
+  failure: T,
   children: T,
   isEmpty?: boolean,
   empty?: T,
