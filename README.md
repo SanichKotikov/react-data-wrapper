@@ -1,10 +1,12 @@
 # react-data-wrapper
 
-Simple ReactJS component for rendering data with loading, failure & empty states.
-
-Note: required React v16.9+
+Simple React component (713 B) for rendering data with loading, failure & empty states.
 
 ## Usage
+
+```bash
+npm i -S react-data-wrapper
+```
 
 ```typescript jsx
 import DataWrapper from 'react-data-wrapper';
@@ -20,7 +22,7 @@ import DataWrapper from 'react-data-wrapper';
 </DataWrapper>
 ```
 
-Note: ErrorLoading interface:
+#### ErrorLoading interface:
 
 ```typescript jsx
 interface ErrorLoadingProps {
@@ -30,9 +32,3 @@ interface ErrorLoadingProps {
 ```
 
 📝 [Example code](https://github.com/SanichKotikov/react-hooks-mobx-demo/blob/master/src/posts/routes/Posts/Posts.tsx)
-
-## Install
-
-```bash
-npm i -S react-data-wrapper
-```

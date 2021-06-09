@@ -1,7 +1,12 @@
 import { useMemo, useState } from 'react';
+import type { SetState, State } from './types';
 import { DataState } from './types';
 
-function useDataState(init: DataState = DataState.Idle) {
+interface StateHook extends State {
+  setState: Readonly<SetState>;
+}
+
+function useDataState(init: DataState = DataState.Idle): Readonly<StateHook> {
   const [state, update] = useState(init);
 
   const setState = useMemo(() => ({

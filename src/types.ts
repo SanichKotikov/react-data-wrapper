@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react';
+import type { ReactChild, ReactElement, ReactNode } from 'react';
 
 export enum DataState {
   Idle,
@@ -13,6 +13,12 @@ export interface State {
   success: boolean;
 }
 
+export interface SetState {
+  load: () => void;
+  done: () => void;
+  error: () => void;
+}
+
 export type FetchDataFunction = () => Promise<void>;
 
 export interface FailureProps {
@@ -21,3 +27,11 @@ export interface FailureProps {
 }
 
 export type FailureElement = ReactElement<Readonly<FailureProps>>;
+
+export interface WrapperProps {
+  loading: ReactChild;
+  failure: FailureElement;
+  isEmpty?: boolean;
+  empty?: ReactChild;
+  children: ReactNode;
+}

@@ -1,14 +1,14 @@
-import type { ReactChild } from 'react';
+import type { ReactChild, ReactNode } from 'react';
 import type { State } from './types';
 
 export function render(
   state: Readonly<State>,
   loadingView: ReactChild,
   failureView: ReactChild,
-  successView: ReactChild,
+  successView: ReactNode,
   isEmpty?: boolean,
   emptyView?: ReactChild,
-): ReactChild | null {
+): ReactNode {
   if (emptyView === undefined) {
     if (state.loading) return loadingView;
     if (state.failure) return failureView;

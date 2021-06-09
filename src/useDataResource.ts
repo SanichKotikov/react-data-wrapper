@@ -1,12 +1,17 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import type { DataState, FailureElement, FetchDataFunction } from './types';
+import type { DataState, FailureElement, FetchDataFunction, State } from './types';
 import useDataState from './useDataState';
+
+interface DataResource {
+  state: State;
+  FailureComp: FailureElement;
+}
 
 export function useDataResource(
   fetcher: FetchDataFunction,
   failure: FailureElement,
   initState?: DataState,
-) {
+): Readonly<DataResource> {
   const [reloading, setReloading] = useState(false);
   const { setState, ...state } = useDataState(initState);
 
