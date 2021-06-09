@@ -1,8 +1,9 @@
-import React, { useMemo, useEffect, useCallback } from 'react';
-import useStates, { DataState } from './useStates';
-import condition from './condition';
+import React, { useEffect, useMemo } from 'react';
+import { DataState } from './useStates';
+import useFetchState from './useFetchState';
+import ControlledDataWrapper from './ControlledDataWrapper';
 
-export { DataState };
+export { DataState, useFetchState, ControlledDataWrapper };
 
 interface IProps {
   initState?: DataState;
@@ -14,35 +15,25 @@ interface IProps {
   children: React.ReactElement;
 }
 
-export default React.memo<IProps>(
-  function DataWrapper({
-    initState,
-    isEmpty,
-    fetchFunc,
-    loading,
-    failure,
-    empty,
-    children,
-  }) {
-    const { setState, ...state } = useStates(initState);
+export default React.memo<IProps>(function DataWrapper({
+  initState,
+  fetchFunc,
+  failure,
+  ...otherProps
+}) {
+  const [state, reload] = useFetchState(fetchFunc, initState);
 
-    useEffect(() => {
-      setState.load();
-      fetchFunc()
-        .then(setState.done)
-        .catch(setState.error);
-    }, [fetchFunc, setState]);
+  const failureWithReload = useMemo(
+    () => React.cloneElement(failure, { onReloadClick: reload }),
+    [failure, reload],
+  );
 
-    const failureFunc = useMemo(() => (
-      (onReloadClick: () => Promise<void>) => (
-        React.cloneElement(failure, {onReloadClick})
-      )
-    ), [failure]);
-
-    const onReload = useCallback(() => {
-      return fetchFunc().then(setState.done);
-    }, [fetchFunc, setState]);
-
-    return condition(state, loading, failureFunc, children, onReload, isEmpty, empty);
-  }
-);
+  return (
+    <ControlledDataWrapper
+      state={state}
+      failure={failureWithReload}
+      onReload={reload}
+      {...otherProps}
+    />
+  );
+});
