@@ -1,15 +1,16 @@
-import { renderHook, act } from '@testing-library/react-hooks';
-import useStates, { DataState } from './useStates';
+import { act, renderHook } from '@testing-library/react-hooks';
+import { DataState } from './types';
+import useDataState from './useDataState';
 
 test('should return idle state', () => {
-  const { result } = renderHook(() => useStates());
+  const { result } = renderHook(() => useDataState());
   expect(result.current.loading).toBeFalsy();
   expect(result.current.failure).toBeFalsy();
   expect(result.current.success).toBeFalsy();
 });
 
 test('should return loading state', () => {
-  const { result } = renderHook(() => useStates());
+  const { result } = renderHook(() => useDataState());
   act(() => result.current.setState.load());
   expect(result.current.loading).toBeTruthy();
   expect(result.current.failure).toBeFalsy();
@@ -17,7 +18,7 @@ test('should return loading state', () => {
 });
 
 test('should return failure state', () => {
-  const { result } = renderHook(() => useStates());
+  const { result } = renderHook(() => useDataState());
   act(() => result.current.setState.error());
   expect(result.current.loading).toBeFalsy();
   expect(result.current.failure).toBeTruthy();
@@ -25,7 +26,7 @@ test('should return failure state', () => {
 });
 
 test('should return success state', () => {
-  const { result } = renderHook(() => useStates());
+  const { result } = renderHook(() => useDataState());
   act(() => result.current.setState.done());
   expect(result.current.loading).toBeFalsy();
   expect(result.current.failure).toBeFalsy();
@@ -33,7 +34,7 @@ test('should return success state', () => {
 });
 
 test('should use initial state', () => {
-  const { result } = renderHook(() => useStates(DataState.Loading));
+  const { result } = renderHook(() => useDataState(DataState.Loading));
   expect(result.current.loading).toBeTruthy();
   expect(result.current.failure).toBeFalsy();
   expect(result.current.success).toBeFalsy();

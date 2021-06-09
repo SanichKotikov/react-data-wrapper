@@ -10,17 +10,24 @@ Note: required React v16.9+
 import DataWrapper from 'react-data-wrapper';
 
 <DataWrapper
-  fetchFunc={store.fetch}
-  isEmpty={store.empty}
+  fetcher={store.fetch}
   loading={<div>Loading posts...</div>}
   failure={<ErrorLoading />}
+  isEmpty={store.empty}
   empty={<div>No data</div>}
 >
   <PostsList posts={store.posts} />
 </DataWrapper>
 ```
 
-Note: ErrorLoading should have `onReloadClick: () => Promise<void>` prop.
+Note: ErrorLoading interface:
+
+```typescript jsx
+interface ErrorLoadingProps {
+  reloading?: boolean;
+  onReloadClick?: () => Promise<void>;
+}
+```
 
 📝 [Example code](https://github.com/SanichKotikov/react-hooks-mobx-demo/blob/master/src/posts/routes/Posts/Posts.tsx)
 

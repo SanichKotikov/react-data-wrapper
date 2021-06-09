@@ -1,24 +1,19 @@
+import type { ReactChild, ReactElement } from 'react';
 import React from 'react';
-
-import condition, { IState } from './condition';
+import type { State } from './types';
+import { render } from './render';
 
 interface IProps {
+  state: Readonly<State>;
+  loading: ReactChild;
+  failure: ReactChild;
   isEmpty?: boolean;
-  state: Readonly<IState>;
-  loading: React.ReactElement;
-  failure: React.ReactElement;
-  empty?: React.ReactElement;
-  children: React.ReactElement;
-  onReload: () => Promise<void>;
+  empty?: ReactChild;
+  children: ReactChild;
 }
 
-export default React.memo<IProps>(function ControlledDataWrapper({
-  isEmpty,
-  state,
-  loading,
-  failure,
-  empty,
-  children,
-}) {
-  return condition(state, loading, failure, children, isEmpty, empty);
-});
+export const ControlledDataWrapper = React.memo<Readonly<IProps>>(
+  function ControlledDataWrapper({ state, loading, failure, isEmpty, empty, children }) {
+    return render(state, loading, failure, children, isEmpty, empty) as ReactElement;
+  },
+);
