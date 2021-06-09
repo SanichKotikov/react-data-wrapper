@@ -21,9 +21,7 @@ export default React.memo<IProps>(function DataWrapper({
   failure,
   ...otherProps
 }) {
-  const [state, runFetch, reload] = useFetchState(fetchFunc, initState);
-
-  useEffect(runFetch, [runFetch]);
+  const [state, reload] = useFetchState(fetchFunc, initState);
 
   const failureWithReload = useMemo(
     () => React.cloneElement(failure, { onReloadClick: reload }),
