@@ -30,5 +30,3 @@ interface ErrorLoadingProps {
   onReloadClick?: () => Promise<void>;
 }
 ```
-
-📝 [Example code](https://github.com/SanichKotikov/react-hooks-mobx-demo/blob/master/src/posts/routes/Posts/Posts.tsx)
